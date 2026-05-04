@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1. Kat - Okul Tanıtımı</title>
+
+<style>
+body {
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+    color:white;
+    text-align:center;
+}
+
+.container {
+    margin-top: 80px;
+}
+
+button {
+    width: 85%;
+    max-width: 320px;
+    padding: 15px;
+    margin: 10px;
+    font-size: 18px;
+    border:none;
+    border-radius: 15px;
+    background:white;
+    color:#333;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏫 1. Kat Tanıtımı</h1>
+
+    <!-- SES -->
+    <audio id="ses">
+        <source src="muzik/birincikat.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- BUTONLAR -->
+    <button onclick="play()">▶️ Başlat</button>
+    <button onclick="pause()">⏸️ Durdur</button>
+    <button onclick="restart()">🔁 Baştan</button>
+
+</div>
+
+<script>
+var s = document.getElementById("ses");
+
+function play(){
+    s.play().catch(e => console.log(e));
+}
+
+function pause(){
+    s.pause();
+}
+
+function restart(){
+    s.currentTime = 0;
+    s.play();
+}
+</script>
+
+</body>
+</html>
