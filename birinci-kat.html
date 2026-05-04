@@ -42,6 +42,7 @@ button {
     color:#333;
     font-weight:bold;
     cursor:pointer;
+    transition:0.3s;
 }
 
 .dark button {
@@ -55,7 +56,7 @@ button {
 
 <div class="container">
 
-    <!-- LOGO -->
+    <!-- OKUL LOGOSU -->
     <img src="resimler/gumusova.png" alt="Okul Logosu">
 
     <h1>🏫 1. Kat Tanıtımı</h1>
@@ -68,7 +69,7 @@ button {
     <!-- BUTONLAR -->
     <button onclick="play()">▶️ Başlat</button>
     <button onclick="pause()">⏸️ Durdur</button>
-    <button onclick="restart()">🔁 Baştan</button>
+    <button onclick="restart()">🔁 Baştan Dinle</button>
     <button onclick="toggleMode()">🌙 Gece Modu</button>
 
 </div>
@@ -76,6 +77,7 @@ button {
 <script>
 var s = document.getElementById("ses");
 
+// SES KONTROL
 function play(){
     s.play().catch(e => console.log(e));
 }
