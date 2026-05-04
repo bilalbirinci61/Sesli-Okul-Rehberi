@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1. Kat - Sesli Rehber</title>
+<title>1. Kat - Okul Rehberi</title>
 
 <style>
 body {
@@ -12,6 +12,13 @@ body {
     background: linear-gradient(135deg, #11998e, #38ef7d);
     color:white;
     text-align:center;
+    transition: 0.4s;
+}
+
+/* GECE MODU */
+.dark {
+    background:#121212;
+    color:white;
 }
 
 /* LOGO */
@@ -19,6 +26,11 @@ body {
     width:110px;
     margin-top:20px;
     border-radius:12px;
+}
+
+/* BAŞLIK */
+h2 {
+    margin-top:10px;
 }
 
 /* KART */
@@ -29,9 +41,10 @@ body {
     width: 90%;
     max-width: 400px;
     border-radius: 15px;
+    backdrop-filter: blur(5px);
 }
 
-/* BUTON */
+/* BUTONLAR */
 button {
     width: 90%;
     max-width: 320px;
@@ -43,6 +56,13 @@ button {
     background:white;
     color:#333;
     font-weight:bold;
+    cursor:pointer;
+}
+
+/* GECE BUTON */
+.dark button {
+    background:#333;
+    color:white;
 }
 
 /* PROGRESS BAR */
@@ -67,12 +87,14 @@ button {
 
 <body>
 
+<!-- LOGO -->
 <img src="resimler/gumusova.png" class="logo">
 
 <h2>🏫 1. Kat Sesli Rehber</h2>
 
 <div class="card">
-📍 Otomatik sesli tanıtım başlıyor...
+📍 Otomatik sesli tanıtım başlıyor...  
+Aşağıdaki butonlarla kontrol edebilirsiniz.
 </div>
 
 <!-- SES -->
@@ -89,19 +111,20 @@ button {
 <button onclick="playAudio()">▶️ Başlat</button>
 <button onclick="pauseAudio()">⏸️ Durdur</button>
 <button onclick="restartAudio()">🔁 Baştan</button>
+<button onclick="toggleMode()">🌙 Gece Modu</button>
 
 <script>
 var audio = document.getElementById("ses");
 var bar = document.getElementById("bar");
 
-// OTOMATİK BAŞLATMA DENEMESİ
+/* OTOMATİK SES DENEME */
 window.onload = function() {
-    audio.play().catch(() => {
-        console.log("Tarayıcı otomatik sesi engelledi.");
+    audio.play().catch(e => {
+        console.log("Otomatik ses engellendi:", e);
     });
 };
 
-// SES KONTROL
+/* SES KONTROL */
 function playAudio(){
     audio.play();
 }
@@ -115,7 +138,12 @@ function restartAudio(){
     audio.play();
 }
 
-// PROGRESS BAR
+/* GECE MODU */
+function toggleMode(){
+    document.body.classList.toggle("dark");
+}
+
+/* PROGRESS BAR */
 audio.addEventListener("timeupdate", function(){
     let percent = (audio.currentTime / audio.duration) * 100;
     bar.style.width = percent + "%";
