@@ -12,7 +12,7 @@ body {
     background: linear-gradient(135deg, #11998e, #38ef7d);
     color:white;
     text-align:center;
-    transition: 0.4s;
+    transition:0.4s;
 }
 
 /* GECE MODU */
@@ -21,19 +21,12 @@ body {
     color:white;
 }
 
-/* LOGO */
 .logo {
     width:110px;
     margin-top:20px;
     border-radius:12px;
 }
 
-/* BAŞLIK */
-h2 {
-    margin-top:10px;
-}
-
-/* KART */
 .card {
     background: rgba(255,255,255,0.15);
     margin: 15px auto;
@@ -41,10 +34,8 @@ h2 {
     width: 90%;
     max-width: 400px;
     border-radius: 15px;
-    backdrop-filter: blur(5px);
 }
 
-/* BUTONLAR */
 button {
     width: 90%;
     max-width: 320px;
@@ -56,13 +47,6 @@ button {
     background:white;
     color:#333;
     font-weight:bold;
-    cursor:pointer;
-}
-
-/* GECE BUTON */
-.dark button {
-    background:#333;
-    color:white;
 }
 
 /* PROGRESS BAR */
@@ -85,7 +69,7 @@ button {
 </style>
 </head>
 
-<body>
+<body id="sayfa">
 
 <!-- LOGO -->
 <img src="resimler/gumusova.png" class="logo">
@@ -93,8 +77,8 @@ button {
 <h2>🏫 1. Kat Sesli Rehber</h2>
 
 <div class="card">
-📍 Otomatik sesli tanıtım başlıyor...  
-Aşağıdaki butonlarla kontrol edebilirsiniz.
+📍 Hoş geldiniz!  
+Sesli tanıtım için ekrana dokunun.
 </div>
 
 <!-- SES -->
@@ -117,14 +101,7 @@ Aşağıdaki butonlarla kontrol edebilirsiniz.
 var audio = document.getElementById("ses");
 var bar = document.getElementById("bar");
 
-/* OTOMATİK SES DENEME */
-window.onload = function() {
-    audio.play().catch(e => {
-        console.log("Otomatik ses engellendi:", e);
-    });
-};
-
-/* SES KONTROL */
+/* SES */
 function playAudio(){
     audio.play();
 }
@@ -140,14 +117,22 @@ function restartAudio(){
 
 /* GECE MODU */
 function toggleMode(){
-    document.body.classList.toggle("dark");
+    document.getElementById("sayfa").classList.toggle("dark");
 }
 
-/* PROGRESS BAR */
+/* İLERLEME BAR */
 audio.addEventListener("timeupdate", function(){
     let percent = (audio.currentTime / audio.duration) * 100;
     bar.style.width = percent + "%";
 });
+
+/* OTOMATİK GÜVENLİ SES BAŞLATMA */
+function ilkDokunma(){
+    audio.play().catch(e => console.log("Engellendi:", e));
+}
+
+document.addEventListener("click", ilkDokunma, { once:true });
+document.addEventListener("touchstart", ilkDokunma, { once:true });
 </script>
 
 </body>
