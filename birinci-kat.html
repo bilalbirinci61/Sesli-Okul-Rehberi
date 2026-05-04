@@ -12,10 +12,22 @@ body {
     background: linear-gradient(135deg, #11998e, #38ef7d);
     color:white;
     text-align:center;
+    transition: 0.5s;
+}
+
+.dark {
+    background:#121212;
+    color:white;
 }
 
 .container {
-    margin-top: 80px;
+    margin-top: 60px;
+}
+
+img {
+    width:120px;
+    margin-bottom:20px;
+    border-radius: 10px;
 }
 
 button {
@@ -31,12 +43,20 @@ button {
     font-weight:bold;
     cursor:pointer;
 }
+
+.dark button {
+    background:#333;
+    color:white;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
+
+    <!-- LOGO -->
+    <img src="resimler/gumusova.png" alt="Okul Logosu">
 
     <h1>🏫 1. Kat Tanıtımı</h1>
 
@@ -49,6 +69,7 @@ button {
     <button onclick="play()">▶️ Başlat</button>
     <button onclick="pause()">⏸️ Durdur</button>
     <button onclick="restart()">🔁 Baştan</button>
+    <button onclick="toggleMode()">🌙 Gece Modu</button>
 
 </div>
 
@@ -66,6 +87,11 @@ function pause(){
 function restart(){
     s.currentTime = 0;
     s.play();
+}
+
+// GECE MODU
+function toggleMode(){
+    document.body.classList.toggle("dark");
 }
 </script>
 
