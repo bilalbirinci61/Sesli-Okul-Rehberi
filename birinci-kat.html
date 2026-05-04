@@ -36,6 +36,7 @@ body {
     border-radius: 15px;
 }
 
+/* BUTONLAR */
 button {
     width: 90%;
     max-width: 320px;
@@ -49,21 +50,21 @@ button {
     font-weight:bold;
 }
 
-/* PROGRESS BAR */
+/* PROGRESS BAR (MOBİL GÖRÜNÜR) */
 #barContainer {
     width: 90%;
     max-width: 400px;
-    height: 12px;
-    background: rgba(255,255,255,0.3);
+    height: 18px;
+    background: rgba(255,255,255,0.4);
     margin: 20px auto;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow:hidden;
 }
 
 #bar {
     height: 100%;
     width: 0%;
-    background: yellow;
+    background: #ffeb3b;
     transition: 0.2s;
 }
 </style>
@@ -78,7 +79,7 @@ button {
 
 <div class="card">
 📍 Hoş geldiniz!  
-Sesli tanıtım için ekrana dokunun.
+Sesli rehber için ekrana dokunun.
 </div>
 
 <!-- SES -->
@@ -103,7 +104,7 @@ var bar = document.getElementById("bar");
 
 /* SES */
 function playAudio(){
-    audio.play();
+    audio.play().catch(e => console.log(e));
 }
 
 function pauseAudio(){
@@ -120,19 +121,27 @@ function toggleMode(){
     document.getElementById("sayfa").classList.toggle("dark");
 }
 
-/* İLERLEME BAR */
-audio.addEventListener("timeupdate", function(){
-    let percent = (audio.currentTime / audio.duration) * 100;
-    bar.style.width = percent + "%";
+/* PROGRESS BAR (MOBİL UYUMLU) */
+audio.addEventListener("timeupdate", function () {
+    if (audio.duration && !isNaN(audio.duration)) {
+        let percent = (audio.currentTime / audio.duration) * 100;
+        bar.style.width = percent + "%";
+    }
 });
 
-/* OTOMATİK GÜVENLİ SES BAŞLATMA */
+/* LOAD FIX */
+audio.addEventListener("loadedmetadata", function(){
+    bar.style.width = "0%";
+});
+
+/* GÜVENLİ OTOMATİK BAŞLATMA (MOBİL UYUMLU) */
 function ilkDokunma(){
     audio.play().catch(e => console.log("Engellendi:", e));
 }
 
 document.addEventListener("click", ilkDokunma, { once:true });
 document.addEventListener("touchstart", ilkDokunma, { once:true });
+
 </script>
 
 </body>
