@@ -3,41 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1. Kat - Okul Tanıtımı</title>
+<title>1. Kat - Okul Rehberi</title>
 
 <style>
 body {
     margin:0;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #11998e, #38ef7d);
     color:white;
     text-align:center;
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
+/* GECE MODU */
 .dark {
     background:#121212;
     color:white;
 }
 
-.container {
-    margin-top: 60px;
+.header {
+    padding: 20px;
 }
 
-img {
-    width:120px;
-    margin-bottom:20px;
-    border-radius: 10px;
+.logo {
+    width:110px;
+    margin-top:20px;
+    border-radius:12px;
 }
 
-button {
-    width: 85%;
-    max-width: 320px;
+.title {
+    font-size:24px;
+    margin-top:10px;
+}
+
+/* MOBİL KART ALANI */
+.card {
+    background: rgba(255,255,255,0.15);
+    margin: 15px auto;
     padding: 15px;
-    margin: 10px;
-    font-size: 18px;
-    border:none;
+    width: 90%;
+    max-width: 400px;
     border-radius: 15px;
+    backdrop-filter: blur(5px);
+}
+
+/* BUTONLAR */
+button {
+    width: 90%;
+    max-width: 320px;
+    padding: 14px;
+    margin: 8px;
+    font-size: 16px;
+    border:none;
+    border-radius: 12px;
     background:white;
     color:#333;
     font-weight:bold;
@@ -49,27 +67,43 @@ button {
     background:#333;
     color:white;
 }
+
+/* ALT MENÜ */
+.footer {
+    margin-top: 20px;
+    padding-bottom: 30px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="header">
 
-    <!-- OKUL LOGOSU -->
-    <img src="resimler/gumusova.png" alt="Okul Logosu">
+    <!-- LOGO -->
+    <img src="resimler/gumusova.png" class="logo">
 
-    <h1>🏫 1. Kat Tanıtımı</h1>
+    <div class="title">🏫 1. Kat Sesli Rehber</div>
 
-    <!-- SES -->
-    <audio id="ses">
-        <source src="muzik/birincikat.mp3" type="audio/mpeg">
-    </audio>
+</div>
 
-    <!-- BUTONLAR -->
+<!-- SES -->
+<audio id="ses">
+    <source src="muzik/birincikat.mp3" type="audio/mpeg">
+</audio>
+
+<!-- KART ALAN -->
+<div class="card">
+    📍 Hoş geldiniz!  
+    Bu bölümde 1. kat tanıtımı dinlenecektir.
+</div>
+
+<!-- BUTONLAR -->
+<div class="footer">
+
     <button onclick="play()">▶️ Başlat</button>
     <button onclick="pause()">⏸️ Durdur</button>
-    <button onclick="restart()">🔁 Baştan Dinle</button>
+    <button onclick="restart()">🔁 Baştan</button>
     <button onclick="toggleMode()">🌙 Gece Modu</button>
 
 </div>
@@ -77,7 +111,7 @@ button {
 <script>
 var s = document.getElementById("ses");
 
-// SES KONTROL
+// SES
 function play(){
     s.play().catch(e => console.log(e));
 }
