@@ -3,100 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Okul Tanıtımı</title>
+<title>Zemin Kat - Okul Rehberi</title>
 
 <style>
 body {
     margin:0;
     font-family: Arial;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, #1d4350, #a43931);
     color:white;
     text-align:center;
-    transition: 0.5s;
+    transition:0.4s;
 }
 
+/* GECE MODU */
 .dark {
-    background: #121212;
-    color: white;
+    background:#121212;
+    color:white;
 }
 
-.container {
-    margin-top: 80px;
+.logo {
+    width:110px;
+    margin-top:20px;
+    border-radius:12px;
 }
 
-img {
-    width:120px;
-    margin-bottom:20px;
-    border-radius: 10px;
-}
-
-button {
-    width: 85%;
-    max-width: 320px;
+.card {
+    background: rgba(255,255,255,0.15);
+    margin: 15px auto;
     padding: 15px;
-    margin: 10px;
-    font-size: 18px;
-    border:none;
+    width: 90%;
+    max-width: 400px;
     border-radius: 15px;
+}
+
+/* BUTONLAR */
+button {
+    width: 90%;
+    max-width: 320px;
+    padding: 14px;
+    margin: 8px;
+    font-size: 16px;
+    border:none;
+    border-radius: 12px;
     background:white;
     color:#333;
     font-weight:bold;
-    cursor:pointer;
 }
 
-.dark button {
-    background:#333;
-    color:white;
+/* PROGRESS BAR */
+#barContainer {
+    width: 90%;
+    max-width: 400px;
+    height: 18px;
+    background: rgba(255,255,255,0.4);
+    margin: 20px auto;
+    border-radius: 12px;
+    overflow:hidden;
+}
+
+#bar {
+    height: 100%;
+    width: 0%;
+    background: #ffeb3b;
+    transition: 0.2s;
 }
 </style>
 </head>
 
-<body>
+<body id="sayfa">
 
-<div class="container">
+<!-- LOGO -->
+<img src="resimler/gumusova.png" class="logo">
 
-    <!-- LOGO -->
-    <img src="resimler/gumusova.png" alt="Okul Logosu">
+<h2>🏫 Okul Tanıtımı ve Zemin Kat Sesli Rehber</h2>
 
-    <h1>🏫 Okul Tanıtımı</h1>
-
-    <!-- SES (muted önemli) -->
-    <audio id="ses" autoplay muted>
-        <source src="muzik/zeminkat.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- BUTONLAR -->
-    <button onclick="play()">▶️ Devam Et</button>
-    <button onclick="pause()">⏸️ Durdur</button>
-    <button onclick="restart()">🔁 Baştan Dinle</button>
-    <button onclick="toggleMode()">🌙 Gece Modu</button>
-
+<div class="card">
+📍 Hoş geldiniz!  
+Okul Tanıtımı ve Zemin kat sesli rehberi için ekrana dokunun.
 </div>
 
+<!-- SES -->
+<audio id="ses">
+    <source src="muzik/zeminkat.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PROGRESS BAR -->
+<div id="barContainer">
+    <div id="bar"></div>
+</div>
+
+<!-- BUTONLAR -->
+<button onclick="playAudio()">▶️ Başlat</button>
+<button onclick="pauseAudio()">⏸️ Durdur</button>
+<button onclick="restartAudio()">🔁 Baştan</button>
+<button onclick="toggleMode()">🌙 Gece Modu</button>
+
 <script>
-var s = document.getElementById("ses");
+var audio = document.getElementById("ses");
+var bar = document.getElementById("bar");
 
-// Buton kontrolleri
-function play(){ 
-    s.muted = false;
-    s.play(); 
-}
-function pause(){ s.pause(); }
-function restart(){ 
-    s.currentTime = 0; 
-    s.muted = false;
-    s.play(); 
+/* SES */
+function playAudio(){
+    audio.play().catch(e => console.log(e));
 }
 
+function pauseAudio(){
+    audio.pause();
+}
+
+function restartAudio(){
+    audio.currentTime = 0;
+    audio.play();
+}
+
+/* GECE MODU */
 function toggleMode(){
-    document.body.classList.toggle("dark");
+    document.getElementById("sayfa").classList.toggle("dark");
 }
 
-// İlk dokunuşta otomatik ses açma
-window.addEventListener("click", function () {
-    s.muted = false;
-    s.play();
-}, { once: true });
+/* PROGRESS BAR */
+audio.addEventListener("timeupdate", function () {
+    if (audio.duration && !isNaN(audio.duration)) {
+        let percent = (audio.currentTime / audio.duration) * 100;
+        bar.style.width = percent + "%";
+    }
+});
+
+/* LOAD FIX */
+audio.addEventListener("loadedmetadata", function(){
+    bar.style.width = "0%";
+});
+
+/* MOBİL UYUMLU OTOMATİK BAŞLATMA */
+function ilkDokunma(){
+    audio.play().catch(e => console.log("Engellendi:", e));
+}
+
+document.addEventListener("click", ilkDokunma, { once:true });
+document.addEventListener("touchstart", ilkDokunma, { once:true });
 
 </script>
 
