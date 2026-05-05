@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1. Kat - Okul Rehberi</title>
+<title>2. Kat - Okul Rehberi</title>
 
 <style>
 body {
     margin:0;
     font-family: Arial;
-    background: linear-gradient(135deg, #11998e, #38ef7d);
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
     color:white;
     text-align:center;
     transition:0.4s;
@@ -50,7 +50,7 @@ button {
     font-weight:bold;
 }
 
-/* PROGRESS BAR (MOBİL GÖRÜNÜR) */
+/* PROGRESS BAR */
 #barContainer {
     width: 90%;
     max-width: 400px;
@@ -75,16 +75,16 @@ button {
 <!-- LOGO -->
 <img src="resimler/gumusova.png" class="logo">
 
-<h2>🏫 1. Kat Sesli Rehber</h2>
+<h2>🏫 2. Kat Sesli Rehber</h2>
 
 <div class="card">
 📍 Hoş geldiniz!  
-Sesli rehber için ekrana dokunun.
+2. kat sesli rehberi için ekrana dokunun.
 </div>
 
 <!-- SES -->
 <audio id="ses">
-    <source src="muzik/birincikat.mp3" type="audio/mpeg">
+    <source src="muzik/ikincikat.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PROGRESS BAR -->
@@ -121,7 +121,7 @@ function toggleMode(){
     document.getElementById("sayfa").classList.toggle("dark");
 }
 
-/* PROGRESS BAR (MOBİL UYUMLU) */
+/* PROGRESS BAR */
 audio.addEventListener("timeupdate", function () {
     if (audio.duration && !isNaN(audio.duration)) {
         let percent = (audio.currentTime / audio.duration) * 100;
@@ -134,7 +134,7 @@ audio.addEventListener("loadedmetadata", function(){
     bar.style.width = "0%";
 });
 
-/* GÜVENLİ OTOMATİK BAŞLATMA (MOBİL UYUMLU) */
+/* MOBİL UYUMLU OTOMATİK BAŞLATMA */
 function ilkDokunma(){
     audio.play().catch(e => console.log("Engellendi:", e));
 }
