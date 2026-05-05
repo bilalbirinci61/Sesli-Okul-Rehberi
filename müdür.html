@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Müdür Odası - Okul Rehberi</title>
+
+<style>
+body {
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color:white;
+    text-align:center;
+    transition:0.4s;
+}
+
+/* GECE MODU */
+.dark {
+    background:#121212;
+    color:white;
+}
+
+.logo {
+    width:110px;
+    margin-top:20px;
+    border-radius:12px;
+}
+
+.card {
+    background: rgba(255,255,255,0.15);
+    margin: 15px auto;
+    padding: 15px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 15px;
+}
+
+/* BUTONLAR */
+button {
+    width: 90%;
+    max-width: 320px;
+    padding: 14px;
+    margin: 8px;
+    font-size: 16px;
+    border:none;
+    border-radius: 12px;
+    background:white;
+    color:#333;
+    font-weight:bold;
+}
+
+/* PROGRESS BAR */
+#barContainer {
+    width: 90%;
+    max-width: 400px;
+    height: 18px;
+    background: rgba(255,255,255,0.4);
+    margin: 20px auto;
+    border-radius: 12px;
+    overflow:hidden;
+}
+
+#bar {
+    height: 100%;
+    width: 0%;
+    background: #ffeb3b;
+    transition: 0.2s;
+}
+</style>
+</head>
+
+<body id="sayfa">
+
+<!-- LOGO -->
+<img src="resimler/gumusova.png" class="logo">
+
+<h2>🏫 Müdür Odası Sesli Rehber</h2>
+
+<div class="card">
+📍 Hoş geldiniz!  
+Müdür odası sesli rehberi için ekrana dokunun.
+</div>
+
+<!-- SES -->
+<audio id="ses">
+    <source src="muzik/mudur.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PROGRESS BAR -->
+<div id="barContainer">
+    <div id="bar"></div>
+</div>
+
+<!-- BUTONLAR -->
+<button onclick="playAudio()">▶️ Başlat</button>
+<button onclick="pauseAudio()">⏸️ Durdur</button>
+<button onclick="restartAudio()">🔁 Baştan</button>
+<button onclick="toggleMode()">🌙 Gece Modu</button>
+
+<script>
+var audio = document.getElementById("ses");
+var bar = document.getElementById("bar");
+
+/* SES */
+function playAudio(){
+    audio.play().catch(e => console.log(e));
+}
+
+function pauseAudio(){
+    audio.pause();
+}
+
+function restartAudio(){
+    audio.currentTime = 0;
+    audio.play();
+}
+
+/* GECE MODU */
+function toggleMode(){
+    document.getElementById("sayfa").classList.toggle("dark");
+}
+
+/* PROGRESS BAR */
+audio.addEventListener("timeupdate", function () {
+    if (audio.duration && !isNaN(audio.duration)) {
+        let percent = (audio.currentTime / audio.duration) * 100;
+        bar.style.width = percent + "%";
+    }
+});
+
+/* LOAD FIX */
+audio.addEventListener("loadedmetadata", function(){
+    bar.style.width = "0%";
+});
+
+/* MOBİL UYUMLU OTOMATİK BAŞLATMA */
+function ilkDokunma(){
+    audio.play().catch(e => console.log("Engellendi:", e));
+}
+
+document.addEventListener("click", ilkDokunma, { once:true });
+document.addEventListener("touchstart", ilkDokunma, { once:true });
+
+</script>
+
+</body>
+</html>
